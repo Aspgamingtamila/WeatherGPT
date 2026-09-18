@@ -42,7 +42,11 @@
   <button class="assistant-launch" id="assistantLaunch"><span>✦</span><span><b>Ask WeatherGPT</b><small>Forecasts, alerts & actions</small></span><kbd>⌘ K</kbd></button>
   <section class="assistant-panel" id="assistantPanel" aria-label="WeatherGPT assistant"><div class="assistant-head"><div><span class="bot-dot">✦</span><div><b>WeatherGPT</b><small>Action intelligence assistant</small></div></div><button id="closeAssistant">×</button></div><div class="chat" id="chat"><div class="bot-message">Hello! I am ready to help with weather, safety alerts, travel or farming decisions for <b id="chatLocation">Chennai</b>. What would you like to know?</div><div class="suggestions"><button>Will it rain tomorrow?</button><button>Is it safe to travel?</button><button>What should farmers do?</button></div></div><form id="chatForm"><button type="button" id="voice" title="Voice input">🎙</button><input id="chatInput" placeholder="Ask about weather or safety…" autocomplete="off"><button class="send" aria-label="Send">↑</button></form></section>
   <footer><span>WeatherGPT prototype · Built for clearer weather decisions</span><span>Weather: Open-Meteo · Radar: RainViewer · Maps: OpenStreetMap / Esri</span></footer>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="app.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- IMPORTANT: The ?v=2 forces your browser to bypass the cache and load the new AI code -->
+  <script src="app.js?v=2"></script>
+  
   <script>
     /* Windy Map Forecast API: real in-page map engine, not an iframe/video. */
     (function () {
@@ -180,4 +184,5 @@
       document.getElementById('closeAssistant').style.display = 'none';
     }());
   </script>
-</body></html>
+</body>
+</html>
