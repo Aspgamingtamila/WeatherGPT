@@ -47,7 +47,7 @@ async function reply(q) {
     
     let data = await res.json();
     
-    // This will print Google's exact error message right into the chat
+    // THIS CATCHES THE GOOGLE CLOUD ERROR AND PRINTS IT IN THE CHAT
     if (data.error) {
       message("Google API Error: " + data.error.message, 'bot');
       return;
