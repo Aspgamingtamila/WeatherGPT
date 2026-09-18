@@ -61,9 +61,19 @@ async function reply(q) {
 }
 // ---------------------------------------------------------
 
+// --- GLOBAL CHAT SUBMIT FUNCTION (Called by the HTML form) ---
+window.submitChat = function() {
+  let q = $('#chatInput').value.trim();
+  if(q) {
+    message(q, 'user');
+    $('#chatInput').value = '';
+    reply(q);
+  }
+};
+// ---------------------------------------------------------
+
 $('#assistantLaunch').onclick=()=>panel.classList.toggle('open');
-$('#closeAssistant').onclick=()=>panel.classList.remove('open');
-$('#chatForm').onsubmit=e=>{e.preventDefault();let q=$('#chatInput').value.trim();if(q){message(q,'user');$('#chatInput').value='';reply(q)}}; $$('.suggestions button').forEach(b=>b.onclick=()=>{message(b.textContent,'user');reply(b.textContent)});$('#climateQuestion').onclick=()=>{panel.classList.add('open');message(`What climate trend would you like to understand for ${state.city}?`,'bot')};
-$('#voice').onclick=()=>{let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('Voice input is not supported in this browser.');let r=new R();r.lang=$('#language').value==='hi'?'hi-IN':'en-IN';r.onresult=e=>{$('#chatInput').value=e.results[0][0].transcript;$('#chatForm').requestSubmit()};r.start()};
+$('#closeAssistant').onclick=()=>panel.classList.remove('open'); $$('.suggestions button').forEach(b=>b.onclick=()=>{message(b.textContent,'user');reply(b.textContent)});$('#climateQuestion').onclick=()=>{panel.classList.add('open');message(`What climate trend would you like to understand for ${state.city}?`,'bot')};
+$('#voice').onclick=()=>{let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('Voice input is not supported in this browser.');let r=new R();r.lang=$('#language').value==='hi'?'hi-IN':'en-IN';r.onresult=e=>{$('#chatInput').value=e.results[0][0].transcript; window.submitChat();};r.start()};
 $('#language').onchange=e=>{if(e.target.value!=='en')alert('The live data and map controls remain available in English; full language translation can be added next.')};
 function initTime(){let n=new Date();$('#mapMonth').innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}">${new Date(2020,i).toLocaleString('en',{month:'short'})}</option>`).join('');$('#mapHour').innerHTML=Array.from({length:24},(_,i)=>`<option value="${i}">${pad(i)}</option>`).join('');setTime(n)}populate();initTime();initMap();selectOverlay('radar');loadRadar();getWeather(true);document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();panel.classList.add('open');$('#chatInput').focus()}});
