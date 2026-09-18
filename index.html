@@ -39,13 +39,31 @@
     <section class="climate card"><div><p class="label">CLIMATE INTELLIGENCE</p><h2>See the pattern, prepare for the future.</h2><p>Past 30 days of observed temperature at your selected place. Use this view to turn a daily decision into a climate-aware one.</p><button class="outline" id="climateQuestion">Ask about climate trends →</button></div><div class="chart-wrap"><div class="chart-label"><b id="avgTemp">--°C</b><span>30-day average</span></div><svg id="climateChart" viewBox="0 0 520 150" role="img" aria-label="Temperature trend chart"></svg><div class="chart-foot"><span>30 days ago</span><span>Today</span></div></div></section>
     <section class="system-flow card" aria-labelledby="flowTitle"><div class="section-heading"><div><p class="label">WEATHERGPT INTELLIGENCE FLOW</p><h2 id="flowTitle">From question to safe action</h2></div><span class="confidence" id="flowState">● READY</span></div><p class="flow-intro">This live pipeline runs for every chat, voice, place, and time request.</p><div class="flow-grid"><div class="flow-node" id="flowUser"><b>1</b><span>USER</span><small>Text · Voice · Language</small></div><div class="flow-arrow">→</div><div class="flow-node" id="flowIntent"><b>2</b><span>WEATHERGPT</span><small>Intent + language router</small></div><div class="flow-arrow">→</div><div class="flow-node" id="flowLocation"><b>3</b><span>LOCATION</span><small>Selected city / map point</small></div><div class="flow-arrow">→</div><div class="flow-node" id="flowData"><b>4</b><span>DATA FUSION</span><small>Weather API · GFS model · official-alert adapter</small></div><div class="flow-arrow">→</div><div class="flow-node" id="flowRisk"><b>5</b><span>RISK ENGINE</span><small>Heat · rain · flood · wind</small></div><div class="flow-arrow">→</div><div class="flow-node" id="flowAction"><b>6</b><span>ACTION ROUTER</span><small>Farm · disaster · aviation · citizen</small></div><div class="flow-arrow">→</div><div class="flow-node output" id="flowOutput"><b>7</b><span>PERSONALISED ANSWER</span><small>Text · map · alerts · voice</small></div></div><div class="flow-result"><span>Latest run</span><b id="flowResult">Live monitoring is ready for Chennai.</b><small id="flowMeta">Sources: Open-Meteo forecast + GFS model context + Windy Map Forecast API</small></div></section>
   </main>
+  
   <button class="assistant-launch" id="assistantLaunch"><span>✦</span><span><b>Ask WeatherGPT</b><small>Forecasts, alerts & actions</small></span><kbd>⌘ K</kbd></button>
-  <section class="assistant-panel" id="assistantPanel" aria-label="WeatherGPT assistant"><div class="assistant-head"><div><span class="bot-dot">✦</span><div><b>WeatherGPT</b><small>Action intelligence assistant</small></div></div><button id="closeAssistant">×</button></div><div class="chat" id="chat"><div class="bot-message">Hello! I am ready to help with weather, safety alerts, travel or farming decisions for <b id="chatLocation">Chennai</b>. What would you like to know?</div><div class="suggestions"><button>Will it rain tomorrow?</button><button>Is it safe to travel?</button><button>What should farmers do?</button></div></div><form id="chatForm"><button type="button" id="voice" title="Voice input">🎙</button><input id="chatInput" placeholder="Ask about weather or safety…" autocomplete="off"><button class="send" aria-label="Send">↑</button></form></section>
+  
+  <section class="assistant-panel" id="assistantPanel" aria-label="WeatherGPT assistant">
+    <div class="assistant-head">
+      <div><span class="bot-dot">✦</span><div><b>WeatherGPT</b><small>Action intelligence assistant</small></div></div>
+      <button id="closeAssistant">×</button>
+    </div>
+    <div class="chat" id="chat">
+      <div class="bot-message">Hello! I am ready to help with weather, safety alerts, travel or farming decisions for <b id="chatLocation">Chennai</b>. What would you like to know?</div>
+      <div class="suggestions"><button>Will it rain tomorrow?</button><button>Is it safe to travel?</button><button>What should farmers do?</button></div>
+    </div>
+    
+    <!-- IMPORTANT FIX: onsubmit="event.preventDefault();" stops the browser from refreshing -->
+    <form id="chatForm" onsubmit="event.preventDefault(); window.submitChat(); return false;">
+      <button type="button" id="voice" title="Voice input">🎙</button>
+      <input id="chatInput" placeholder="Ask about weather or safety…" autocomplete="off">
+      <button class="send" type="submit" aria-label="Send">↑</button>
+    </form>
+  </section>
+  
   <footer><span>WeatherGPT prototype · Built for clearer weather decisions</span><span>Weather: Open-Meteo · Radar: RainViewer · Maps: OpenStreetMap / Esri</span></footer>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <!-- IMPORTANT: The ?v=2 forces your browser to bypass the cache and load the new AI code -->
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
   
   <script>
     /* Windy Map Forecast API: real in-page map engine, not an iframe/video. */
